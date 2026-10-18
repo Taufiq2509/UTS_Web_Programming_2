@@ -1,69 +1,92 @@
 @extends('layouts.app')
 
-@section('title', 'Manajemen Pengguna & Role')
+@section('title', 'Manajemen Pengguna & Hak Akses (Role)')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h4 class="fw-bold mb-1">Manajemen Pengguna & Hak Akses (Role)</h4>
+        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.45rem;">Manajemen Pengguna & Hak Akses (Role)</h4>
         <p class="text-muted small mb-0">Kelola akun dan otorisasi 3 role pengguna: Owner, Staf, dan Pembeli</p>
     </div>
     <a href="{{ route('owner.users.create') }}" class="btn btn-primary-custom btn-sm">
-        <i class="bi bi-person-plus me-1"></i> Tambah Pengguna Baru
+        <i class="bi bi-plus-lg me-1"></i> Tambah Pengguna Baru
     </a>
 </div>
 
-<div class="card-custom">
-    <div class="p-3 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <form method="GET" action="{{ route('owner.users.index') }}" class="d-flex gap-2">
-            <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nama atau email..." value="{{ request('search') }}">
+<!-- Filter Sesuai Panel 7 Mockup -->
+<div class="card-custom p-3 mb-4">
+    <form method="GET" action="{{ route('owner.users.index') }}" class="row g-2 align-items-center">
+        <div class="col-md-5">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Cari nama atau email..." value="{{ request('search') }}">
+            </div>
+        </div>
+        <div class="col-md-4">
             <select name="role" class="form-select form-select-sm">
-                <option value="">Semua Role</option>
-                <option value="owner" {{ request('role') == 'owner' ? 'selected' : '' }}>Owner</option>
-                <option value="staf" {{ request('role') == 'staf' ? 'selected' : '' }}>Staf</option>
-                <option value="pembeli" {{ request('role') == 'pembeli' ? 'selected' : '' }}>Pembeli</option>
+                <option value="">Semua Role Akses</option>
+                <option value="owner" {{ request('role') == 'owner' ? 'selected' : '' }}>Owner (Admin Utama)</option>
+                <option value="staf" {{ request('role') == 'staf' ? 'selected' : '' }}>Staf Operasional</option>
+                <option value="pembeli" {{ request('role') == 'pembeli' ? 'selected' : '' }}>Pembeli (Customer)</option>
             </select>
-            <button type="submit" class="btn btn-sm btn-outline-secondary">Filter</button>
+        </div>
+        <div class="col-md-3 d-flex gap-1">
+            <button type="submit" class="btn btn-sm btn-primary-custom w-100 py-1">
+                <i class="bi bi-funnel me-1"></i> Filter
+            </button>
             @if(request('search') || request('role'))
-                <a href="{{ route('owner.users.index') }}" class="btn btn-sm btn-light border">Reset</a>
+                <a href="{{ route('owner.users.index') }}" class="btn btn-sm btn-light border py-1">Reset</a>
             @endif
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 
+<!-- Tabel Pengguna Sesuai Mockup -->
+<div class="card-custom">
     <div class="table-responsive">
-        <table class="table table-custom">
+        <table class="table table-custom align-middle">
             <thead>
                 <tr>
                     <th style="width: 50px;">No</th>
-                    <th>Nama Lengkap</th>
-                    <th>Alamat Email</th>
-                    <th>Role Akses</th>
-                    <th>Bergabung Sejak</th>
-                    <th style="width: 140px;">Aksi</th>
+                    <th>NAMA LENGKAP</th>
+                    <th>EMAIL</th>
+                    <th class="text-center" style="width: 140px;">ROLE AKSES</th>
+                    <th>BERGABUNG SEJAK</th>
+                    <th class="text-center" style="width: 120px;">AKSI</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($users as $index => $user)
                 <tr>
-                    <td>{{ $users->firstItem() + $index }}</td>
-                    <td class="fw-bold">{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                        <span class="role-badge role-{{ $user->role }}">
-                            {{ strtoupper($user->role) }}
-                        </span>
+                    <td class="text-secondary fw-semibold">{{ $users->firstItem() + $index }}</td>
+                    <td class="fw-bold text-dark">{{ $user->name }}</td>
+                    <td class="text-secondary small">{{ $user->email }}</td>
+                    <td class="text-center">
+                        @if($user->role === 'owner')
+                            <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 800; border-radius: 20px; padding: 0.35rem 0.85rem; font-size: 0.725rem; letter-spacing: 0.04em;">
+                                OWNER
+                            </span>
+                        @elseif($user->role === 'staf')
+                            <span class="badge" style="background: #e0e7ff; color: #3730a3; font-weight: 800; border-radius: 20px; padding: 0.35rem 0.85rem; font-size: 0.725rem; letter-spacing: 0.04em;">
+                                STAF
+                            </span>
+                        @else
+                            <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 800; border-radius: 20px; padding: 0.35rem 0.85rem; font-size: 0.725rem; letter-spacing: 0.04em;">
+                                PEMBELI
+                            </span>
+                        @endif
                     </td>
                     <td class="text-muted small">{{ $user->created_at->format('d/m/Y') }}</td>
-                    <td>
-                        <div class="d-flex gap-1">
-                            <a href="{{ route('owner.users.edit', $user) }}" class="btn btn-sm btn-outline-warning" title="Ubah Role / Data">
+                    <td class="text-center">
+                        <div class="d-inline-flex gap-1 justify-content-center">
+                            <a href="{{ route('owner.users.edit', $user) }}" class="btn-action-edit" title="Ubah User & Role">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             @if($user->id !== Auth::id())
-                            <form action="{{ route('owner.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun ini?');" class="d-inline">
+                            <form action="{{ route('owner.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun pengguna ini?');" class="d-inline m-0">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus Akun">
+                                <button type="submit" class="btn-action-delete" title="Hapus User">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
@@ -73,7 +96,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">Tidak ada data pengguna.</td>
+                    <td colspan="6" class="text-center text-muted py-4">Tidak ada data pengguna yang sesuai.</td>
                 </tr>
                 @endforelse
             </tbody>

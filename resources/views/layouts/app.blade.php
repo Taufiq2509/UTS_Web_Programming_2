@@ -389,6 +389,249 @@
             box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
         }
 
+        .btn-action-edit {
+            width: 32px;
+            height: 32px;
+            background: #fffbeb;
+            color: #d97706;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-action-edit:hover {
+            background: #fef3c7;
+            color: #b45309;
+            transform: scale(1.05);
+        }
+
+        .btn-action-delete {
+            width: 32px;
+            height: 32px;
+            background: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-action-delete:hover {
+            background: #fee2e2;
+            color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .btn-action-view {
+            width: 32px;
+            height: 32px;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-action-view:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        /* Hero Banner Component (Consistent across roles) */
+        .hero-banner {
+            background: linear-gradient(135deg, #e0f2fe 0%, #e0e7ff 55%, #f0fdf4 100%);
+            border: 1px solid #dbeafe;
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero-greeting {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 0.25rem;
+        }
+        .hero-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+        .hero-desc {
+            color: #475569;
+            font-size: 0.95rem;
+            max-width: 580px;
+            margin-bottom: 0;
+        }
+        .hero-illustration {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modern KPI Metric Stat Cards (Consistent across roles) */
+        .kpi-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 1.6rem 1.4rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 165px;
+        }
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.08);
+        }
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .kpi-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .kpi-arrow-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .kpi-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.35rem;
+        }
+        .kpi-number {
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.35rem;
+        }
+        .kpi-subtext {
+            font-size: 0.775rem;
+            font-weight: 500;
+        }
+
+        /* Wave tints at card bottom */
+        .wave-blue { background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(239,246,255,0.7) 100%); }
+        .wave-green { background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(240,253,244,0.7) 100%); }
+        .wave-purple { background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(250,245,255,0.7) 100%); }
+        .wave-red { background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(254,242,242,0.7) 100%); }
+
+        /* Alert Restock Banner */
+        .restock-alert-banner {
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-radius: 18px;
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .restock-icon-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #fee2e2;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .btn-restock-po {
+            background-color: #ef4444;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.885rem;
+            padding: 0.65rem 1.4rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-restock-po:hover {
+            background-color: #dc2626;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        }
+
+        .table-custom {
+            margin-bottom: 0;
+            font-size: 0.885rem;
+        }
+        .table-custom thead th {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-weight: 700;
+            font-size: 0.775rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid #eef2f6;
+            border-top: none;
+        }
+        .table-custom tbody td {
+            padding: 0.95rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+        .table-custom tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .table-custom tbody tr:hover {
+            background-color: #fbfcfe;
+        }
+
         @media (max-width: 992px) {
             .app-sidebar {
                 display: none;
@@ -476,7 +719,19 @@
                     </a>
                 </li>
 
-                <div class="nav-section-title">KATALOG & STOK</div>
+                <div class="nav-section-title">MASTER DATA</div>
+                <li>
+                    <a href="{{ route('staf.categories.index') }}" class="nav-item-link {{ request()->routeIs('staf.categories.*') ? 'active' : '' }}">
+                        <i class="bi bi-tag"></i>
+                        <span>Kategori Produk</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('staf.suppliers.index') }}" class="nav-item-link {{ request()->routeIs('staf.suppliers.*') ? 'active' : '' }}">
+                        <i class="bi bi-truck"></i>
+                        <span>Pemasok (Suppliers)</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('staf.products.index') }}" class="nav-item-link {{ request()->routeIs('staf.products.*') ? 'active' : '' }}">
                         <i class="bi bi-box"></i>
@@ -484,7 +739,7 @@
                     </a>
                 </li>
 
-                <div class="nav-section-title">OPERASIONAL TRANSAKSI</div>
+                <div class="nav-section-title">TRANSAKSI</div>
                 <li>
                     <a href="{{ route('staf.purchases.index') }}" class="nav-item-link {{ request()->routeIs('staf.purchases.*') ? 'active' : '' }}">
                         <i class="bi bi-cart-plus"></i>
@@ -499,10 +754,19 @@
                 </li>
 
             @elseif(Auth::user()->isPembeli())
+                <div class="nav-section-title">MENU UTAMA</div>
                 <li>
                     <a href="{{ route('customer.dashboard') }}" class="nav-item-link {{ request()->routeIs('customer.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-shop"></i>
                         <span>Katalog Belanja</span>
+                    </a>
+                </li>
+
+                <div class="nav-section-title">TRANSAKSI SAYA</div>
+                <li>
+                    <a href="{{ route('customer.dashboard') }}#riwayat-belanja" class="nav-item-link">
+                        <i class="bi bi-clock-history"></i>
+                        <span>Riwayat Belanja</span>
                     </a>
                 </li>
             @endif

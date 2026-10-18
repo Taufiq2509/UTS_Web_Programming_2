@@ -89,22 +89,28 @@ class DashboardController extends Controller
         $today = Carbon::today();
 
         $totalProducts = Product::count();
+        $totalCategories = Category::count();
+        $totalSuppliers = Supplier::count();
         $lowStockCount = Product::whereColumn('stock', '<=', 'minimum_stock')->count();
 
         $todaySalesCount = Sale::where('status', 'completed')
             ->whereDate('sold_at', $today)
             ->count();
 
+        $todaySalesTotal = Sale::where('status', 'completed')
+            ->whereDate('sold_at', $today)
+            ->sum('total');
+
         $todayPurchasesCount = Purchase::where('status', 'completed')
             ->whereDate('purchased_at', $today)
             ->count();
 
-        $recentSales = Sale::with(['items.product'])
+        $recentSales = Sale::with(['items.product', 'user'])
             ->latest('sold_at')
             ->take(5)
             ->get();
 
-        $recentPurchases = Purchase::with(['supplier'])
+        $recentPurchases = Purchase::with(['supplier', 'user'])
             ->latest('purchased_at')
             ->take(5)
             ->get();
@@ -117,8 +123,11 @@ class DashboardController extends Controller
 
         return view('staf.dashboard', compact(
             'totalProducts',
+            'totalCategories',
+            'totalSuppliers',
             'lowStockCount',
             'todaySalesCount',
+            'todaySalesTotal',
             'todayPurchasesCount',
             'recentSales',
             'recentPurchases',
@@ -156,6 +165,17 @@ class DashboardController extends Controller
             ->latest('sold_at')
             ->paginate(5, ['*'], 'orders_page');
 
-        return view('customer.dashboard', compact('products', 'categories', 'myOrders'));
+        $myTotalSpent = Sale::where('user_id', Auth::id())->where('status', 'completed')->sum('total');
+        $myOrdersCount = Sale::where('user_id', Auth::id())->where('status', 'completed')->count();
+        $totalAvailableProducts = Product::where('stock', '>', 0)->count();
+
+        return view('customer.dashboard', compact(
+            'products',
+            'categories',
+            'myOrders',
+            'myTotalSpent',
+            'myOrdersCount',
+            'totalAvailableProducts'
+        ));
     }
 }

@@ -560,112 +560,84 @@
     </div>
 </div>
 
-<!-- 5. Bagian Transaksi Penjualan & Pembelian Terkini -->
-<div class="row g-4">
-    <!-- Penjualan Terakhir -->
-    <div class="col-lg-6">
-        <div class="card-custom h-100">
-            <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-cart-check text-success me-2"></i> Penjualan Terakhir</h6>
-                <a href="{{ route('owner.sales.index') }}" class="btn btn-sm btn-link text-decoration-none fw-bold text-primary">Lihat Semua &rarr;</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-custom">
-                    <thead>
-                        <tr>
-                            <th>No. Transaksi</th>
-                            <th>Pelanggan</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($recentSales as $sale)
-                        <tr>
-                            <td>
-                                <a href="{{ route('owner.sales.show', $sale) }}" class="fw-bold text-decoration-none text-primary">
-                                    {{ $sale->sale_number }}
-                                </a>
-                                <br><small class="text-muted">{{ $sale->sold_at->format('d/m/Y H:i') }}</small>
-                            </td>
-                            <td>{{ $sale->customer_name }}</td>
-                            <td class="fw-bold">Rp {{ number_format($sale->total, 0, ',', '.') }}</td>
-                            <td>
-                                @if($sale->status === 'completed')
-                                    <span class="status-badge status-completed"><i class="bi bi-check-circle"></i> Selesai</span>
-                                @else
-                                    <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Dibatalkan</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('owner.sales.show', $sale) }}" class="btn btn-sm btn-light border" title="Lihat Detail">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-3">Belum ada transaksi penjualan.</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+<!-- 5. Tabel "Daftar Transaksi Terbaru" (Panel 1 Mockup) -->
+<div class="card-custom mb-4">
+    <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-receipt text-primary fs-5"></i>
+            <h6 class="fw-bold mb-0 text-dark" style="font-size: 1.05rem;">Daftar Transaksi Terbaru</h6>
         </div>
+        <a href="{{ route('owner.sales.index') }}" class="text-decoration-none fw-bold text-primary" style="font-size: 0.885rem;">Lihat Semua &rarr;</a>
     </div>
 
-    <!-- Pembelian Terakhir -->
-    <div class="col-lg-6">
-        <div class="card-custom h-100">
-            <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-truck text-primary me-2"></i> Pembelian Stok Terakhir</h6>
-                <a href="{{ route('owner.purchases.index') }}" class="btn btn-sm btn-link text-decoration-none fw-bold text-primary">Lihat Semua &rarr;</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-custom">
-                    <thead>
-                        <tr>
-                            <th>No. PO</th>
-                            <th>Pemasok</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($recentPurchases as $po)
-                        <tr>
-                            <td>
-                                <a href="{{ route('owner.purchases.show', $po) }}" class="fw-bold text-decoration-none text-primary">
-                                    {{ $po->purchase_number }}
-                                </a>
-                                <br><small class="text-muted">{{ $po->purchased_at->format('d/m/Y H:i') }}</small>
-                            </td>
-                            <td>{{ $po->supplier->name ?? '-' }}</td>
-                            <td class="fw-bold">Rp {{ number_format($po->total, 0, ',', '.') }}</td>
-                            <td>
-                                @if($po->status === 'completed')
-                                    <span class="status-badge status-completed"><i class="bi bi-check-circle"></i> Selesai</span>
-                                @else
-                                    <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Dibatalkan</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('owner.purchases.show', $po) }}" class="btn btn-sm btn-light border" title="Lihat Detail">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-3">Belum ada transaksi pembelian.</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-custom align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">No</th>
+                    <th>No. Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Jenis</th>
+                    <th>Total</th>
+                    <th class="text-center" style="width: 140px;">Status</th>
+                    <th class="text-center" style="width: 130px;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recentSales as $index => $sale)
+                <tr>
+                    <td class="text-secondary fw-semibold">{{ $index + 1 }}</td>
+                    <td class="fw-bold">
+                        <a href="{{ route('owner.sales.show', $sale) }}" class="text-decoration-none text-primary" style="font-size: 0.885rem;">
+                            {{ $sale->sale_number }}
+                        </a>
+                    </td>
+                    <td class="text-muted small">
+                        {{ $sale->sold_at->format('d/m/Y') }} {{ $sale->sold_at->format('H:i') }}
+                    </td>
+                    <td>
+                        <span class="badge" style="background: #eff6ff; color: #2563eb; font-weight: 700; border-radius: 20px; padding: 0.3rem 0.65rem; font-size: 0.725rem;">
+                            Penjualan
+                        </span>
+                    </td>
+                    <td class="fw-bold text-dark">Rp {{ number_format($sale->total, 0, ',', '.') }}</td>
+                    <td class="text-center">
+                        @if($sale->status === 'completed')
+                            <span class="status-badge status-completed">
+                                <i class="bi bi-check-circle"></i> Selesai
+                            </span>
+                        @else
+                            <span class="status-badge status-cancelled">
+                                <i class="bi bi-x-circle"></i> Dibatalkan
+                            </span>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <div class="d-inline-flex gap-1 justify-content-center">
+                            <a href="{{ route('owner.sales.show', $sale) }}" class="btn-action-view" title="Detail">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ route('owner.sales.show', $sale) }}" class="btn-action-edit" title="Cetak / Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            @if($sale->status === 'completed')
+                            <form action="{{ route('owner.sales.cancel', $sale) }}" method="POST" onsubmit="return confirm('Batalkan transaksi ini? Stok akan dipulihkan.');" class="d-inline m-0">
+                                @csrf
+                                <button type="submit" class="btn-action-delete" title="Batalkan Transaksi">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-3">Belum ada transaksi penjualan terbaru.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection

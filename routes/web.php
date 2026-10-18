@@ -78,7 +78,9 @@ Route::middleware(['auth', 'role:owner'])->prefix('owner')->name('owner.')->grou
 Route::middleware(['auth', 'role:staf'])->prefix('staf')->name('staf.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'staf'])->name('dashboard');
     
-    // Staf dapat melihat katalog produk dan detailnya
+    // Staf dapat melihat katalog master data (kategori, supplier, produk)
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     

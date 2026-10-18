@@ -13,8 +13,8 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,46 +23,62 @@
         }
         .login-card {
             background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.4);
             max-width: 480px;
             width: 100%;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
         .login-header {
-            background: #f8fafc;
-            padding: 2.25rem 2rem 1.75rem;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            padding: 2.5rem 2rem 2rem;
             text-align: center;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #dbeafe;
         }
-        .brand-badge {
+        .brand-logo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 14px;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: #eef2ff;
-            color: #4338ca;
-            padding: 0.4rem 0.9rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.85rem;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.7rem;
+            box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.4);
             margin-bottom: 0.75rem;
         }
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #1e40af;
+            line-height: 1.1;
+        }
+        .brand-subtitle {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 600;
+            display: block;
+            margin-top: 3px;
+        }
         .form-control:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
         .demo-box {
-            background: #f1f5f9;
-            border-radius: 12px;
-            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.1rem;
             margin-top: 1.5rem;
         }
         .btn-demo {
             font-size: 0.8rem;
-            padding: 0.35rem 0.6rem;
-            border-radius: 6px;
-            font-weight: 600;
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.15s;
         }
@@ -72,11 +88,11 @@
 
 <div class="login-card">
     <div class="login-header">
-        <div class="brand-badge">
-            <i class="bi bi-box-seam-fill"></i> UTS WEB PROGRAMMING 2
+        <div class="brand-logo-icon">
+            <i class="bi bi-boxes"></i>
         </div>
-        <h4 class="fw-bold text-dark mb-1">Inventory & Sales System</h4>
-        <p class="text-muted small mb-0">Silakan login untuk mengakses sistem sesuai role Anda</p>
+        <div class="brand-title">INVENTRA</div>
+        <div class="brand-subtitle">Inventory Management System</div>
     </div>
 
     <div class="p-4 p-sm-5">
@@ -118,10 +134,10 @@
                         Ingat Saya
                     </label>
                 </div>
-                <a href="{{ route('register') }}" class="small text-decoration-none fw-semibold text-primary">Daftar Akun Baru</a>
+                <a href="{{ route('register') }}" class="small text-decoration-none fw-bold text-primary">Daftar Akun Baru</a>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); border: none;">
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 10px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);">
                 <i class="bi bi-box-arrow-in-right me-1"></i> Masuk Sekarang
             </button>
         </form>
@@ -129,18 +145,18 @@
         <!-- Kotak Akun Demo untuk Dosen / Penguji -->
         <div class="demo-box">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="fw-bold small text-dark"><i class="bi bi-key-fill text-warning me-1"></i> Quick Demo Akun:</span>
-                <span class="badge bg-secondary" style="font-size: 0.7rem;">Password: password123</span>
+                <span class="fw-bold small text-dark"><i class="bi bi-shield-check text-primary me-1"></i> Akun Uji Coba:</span>
+                <span class="badge bg-light text-muted border" style="font-size: 0.7rem;">Password: password123</span>
             </div>
             <div class="d-flex flex-wrap gap-2">
                 <button type="button" class="btn btn-sm btn-outline-primary btn-demo" onclick="fillCreds('owner@example.com')">
-                    👑 Login Owner
+                    👑 Owner (Budi Santoso)
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-info btn-demo" onclick="fillCreds('staf@example.com')">
-                    🧑‍💼 Login Staf
+                    🧑‍💼 Staf (Siti Rahma)
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-success btn-demo" onclick="fillCreds('pembeli@example.com')">
-                    🛒 Login Pembeli
+                    🛒 Pembeli (Andi Wijaya)
                 </button>
             </div>
         </div>
