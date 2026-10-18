@@ -24,11 +24,11 @@
         <div class="col-md-3">
             <small class="text-muted d-block mb-1">Status Transaksi</small>
             @if($purchase->status === 'completed')
-                <span class="badge bg-success bg-opacity-15 text-success fs-6 px-3 py-2">
+                <span class="status-badge status-completed fs-6 px-3 py-2">
                     <i class="bi bi-check-circle me-1"></i> Selesai (Stok Diterima)
                 </span>
             @else
-                <span class="badge bg-danger bg-opacity-15 text-danger fs-6 px-3 py-2">
+                <span class="status-badge status-cancelled fs-6 px-3 py-2">
                     <i class="bi bi-x-circle me-1"></i> Dibatalkan
                 </span>
             @endif

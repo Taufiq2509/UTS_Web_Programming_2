@@ -172,6 +172,27 @@
         .role-staf { background-color: #e0e7ff; color: #3730a3; }
         .role-pembeli { background-color: #d1fae5; color: #065f46; }
 
+        .status-badge {
+            font-size: 0.785rem;
+            padding: 0.35rem 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        .status-completed {
+            background-color: #dcfce7 !important;
+            color: #166534 !important;
+            border: 1px solid #86efac !important;
+        }
+        .status-cancelled {
+            background-color: #fee2e2 !important;
+            color: #991b1b !important;
+            border: 1px solid #fca5a5 !important;
+        }
+
         .btn-primary-custom {
             background-color: var(--primary-color);
             border-color: var(--primary-color);

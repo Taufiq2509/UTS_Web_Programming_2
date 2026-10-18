@@ -80,9 +80,9 @@
                     <td class="fw-bold text-success fs-6">Rp {{ number_format($sale->total, 0, ',', '.') }}</td>
                     <td>
                         @if($sale->status === 'completed')
-                            <span class="badge bg-success bg-opacity-15 text-success">Selesai</span>
+                            <span class="status-badge status-completed"><i class="bi bi-check-circle"></i> Selesai</span>
                         @else
-                            <span class="badge bg-danger bg-opacity-15 text-danger">Dibatalkan</span>
+                            <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Dibatalkan</span>
                         @endif
                     </td>
                     <td>

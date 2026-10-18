@@ -83,9 +83,9 @@
                     <td class="fw-bold text-dark">Rp {{ number_format($po->total, 0, ',', '.') }}</td>
                     <td>
                         @if($po->status === 'completed')
-                            <span class="badge bg-success bg-opacity-15 text-success">Selesai (Masuk)</span>
+                            <span class="status-badge status-completed"><i class="bi bi-check-circle"></i> Selesai (Masuk)</span>
                         @else
-                            <span class="badge bg-danger bg-opacity-15 text-danger">Dibatalkan</span>
+                            <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Dibatalkan</span>
                         @endif
                     </td>
                     <td>

@@ -47,7 +47,7 @@
             <div class="card-custom h-100 d-flex flex-column p-3">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <span class="badge bg-light text-secondary border small">{{ $product->category->name ?? 'Umum' }}</span>
-                    <span class="badge bg-success bg-opacity-15 text-success">Stok: {{ $product->stock }} unit</span>
+                    <span class="badge bg-success text-white">Stok: {{ $product->stock }} unit</span>
                 </div>
                 <h6 class="fw-bold text-dark mb-1">{{ $product->name }}</h6>
                 <small class="text-muted d-block mb-3">SKU: {{ $product->sku }}</small>
@@ -150,9 +150,9 @@
                         <td class="fw-bold text-success">Rp {{ number_format($order->total, 0, ',', '.') }}</td>
                         <td>
                             @if($order->status === 'completed')
-                                <span class="badge bg-success bg-opacity-15 text-success">Berhasil Selesai</span>
+                                <span class="status-badge status-completed"><i class="bi bi-check-circle"></i> Selesai</span>
                             @else
-                                <span class="badge bg-danger bg-opacity-15 text-danger">Dibatalkan</span>
+                                <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Dibatalkan</span>
                             @endif
                         </td>
                     </tr>
