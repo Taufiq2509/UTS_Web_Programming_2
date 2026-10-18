@@ -3,68 +3,80 @@
 @section('title', 'Dashboard Staf')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h4 class="fw-bold mb-1">Dashboard Operasional Staf</h4>
-        <p class="text-muted small mb-0">Manajemen pergerakan stok harian: Pencatatan Pembelian Masuk dan Transaksi Penjualan</p>
-    </div>
-    <div class="d-flex gap-2">
-        <a href="{{ route('staf.purchases.create') }}" class="btn btn-outline-primary btn-sm">
-            <i class="bi bi-cart-plus me-1"></i> Input Pembelian Stok
-        </a>
-        <a href="{{ route('staf.sales.create') }}" class="btn btn-primary-custom btn-sm">
-            <i class="bi bi-cart-check me-1"></i> Input Penjualan Baru
-        </a>
+<!-- Hero Banner Staf -->
+<div class="card-custom p-4 mb-4 border-0" style="background: linear-gradient(135deg, #e0f2fe 0%, #e0e7ff 60%, #f0fdf4 100%); border-radius: 20px;">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <span class="text-secondary small fw-semibold">Selamat Datang,</span>
+            <h3 class="fw-bold text-dark mb-1">{{ Auth::user()->name }} 👋 (Staf Operasional)</h3>
+            <p class="text-muted small mb-0">Catat pergerakan barang masuk dari supplier dan penjualan langsung ke pelanggan.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ route('staf.purchases.create') }}" class="btn btn-outline-primary btn-sm rounded-3">
+                <i class="bi bi-cart-plus me-1"></i> Input Pembelian Stok
+            </a>
+            <a href="{{ route('staf.sales.create') }}" class="btn btn-primary-custom btn-sm rounded-3">
+                <i class="bi bi-cart-check me-1"></i> Input Penjualan Baru
+            </a>
+        </div>
     </div>
 </div>
 
 <!-- Metrik Staf -->
 <div class="row g-3 mb-4">
     <div class="col-md-3">
-        <div class="card-custom stat-card">
-            <div>
-                <span class="text-muted small fw-semibold d-block mb-1">Produk Terdaftar</span>
-                <h3 class="fw-bold mb-0 text-dark">{{ $totalProducts }}</h3>
-                <small class="text-muted">Katalog aktif</small>
-            </div>
-            <div class="stat-icon bg-primary bg-opacity-10 text-primary">
-                <i class="bi bi-boxes"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card-custom stat-card">
-            <div>
-                <span class="text-muted small fw-semibold d-block mb-1">Perlu Restock</span>
-                <h3 class="fw-bold mb-0 {{ $lowStockCount > 0 ? 'text-danger' : 'text-success' }}">{{ $lowStockCount }}</h3>
-                <small class="text-muted">Stok &le; batas minimum</small>
-            </div>
-            <div class="stat-icon {{ $lowStockCount > 0 ? 'bg-danger text-danger' : 'bg-success text-success' }} bg-opacity-10">
-                <i class="bi bi-exclamation-triangle"></i>
+        <div class="card-custom p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small fw-semibold d-block mb-1">Produk Terdaftar</span>
+                    <h3 class="fw-bold mb-0 text-dark">{{ $totalProducts }}</h3>
+                    <small class="text-primary fw-semibold">Katalog aktif</small>
+                </div>
+                <div class="p-3 rounded-4" style="background: #eff6ff; color: #2563eb; font-size: 1.35rem;">
+                    <i class="bi bi-boxes"></i>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card-custom stat-card">
-            <div>
-                <span class="text-muted small fw-semibold d-block mb-1">Penjualan Hari Ini</span>
-                <h3 class="fw-bold mb-0 text-success">{{ $todaySalesCount }}</h3>
-                <small class="text-muted">Transaksi selesai</small>
-            </div>
-            <div class="stat-icon bg-success bg-opacity-10 text-success">
-                <i class="bi bi-receipt"></i>
+        <div class="card-custom p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small fw-semibold d-block mb-1">Perlu Restock</span>
+                    <h3 class="fw-bold mb-0 {{ $lowStockCount > 0 ? 'text-danger' : 'text-success' }}">{{ $lowStockCount }} Item</h3>
+                    <small class="text-muted">Stok &le; minimum</small>
+                </div>
+                <div class="p-3 rounded-4 {{ $lowStockCount > 0 ? 'bg-danger bg-opacity-10 text-danger' : 'bg-success bg-opacity-10 text-success' }}" style="font-size: 1.35rem;">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card-custom stat-card">
-            <div>
-                <span class="text-muted small fw-semibold d-block mb-1">Pembelian Hari Ini</span>
-                <h3 class="fw-bold mb-0 text-info">{{ $todayPurchasesCount }}</h3>
-                <small class="text-muted">Stock-in tercatat</small>
+        <div class="card-custom p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small fw-semibold d-block mb-1">Penjualan Hari Ini</span>
+                    <h3 class="fw-bold mb-0 text-success">{{ $todaySalesCount }} Transaksi</h3>
+                    <small class="text-muted">Kasir selesai</small>
+                </div>
+                <div class="p-3 rounded-4" style="background: #f0fdf4; color: #16a34a; font-size: 1.35rem;">
+                    <i class="bi bi-receipt"></i>
+                </div>
             </div>
-            <div class="stat-icon bg-info bg-opacity-10 text-info">
-                <i class="bi bi-truck"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-custom p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small fw-semibold d-block mb-1">Pembelian Hari Ini</span>
+                    <h3 class="fw-bold mb-0 text-info">{{ $todayPurchasesCount }} Transaksi</h3>
+                    <small class="text-muted">Stock-in masuk</small>
+                </div>
+                <div class="p-3 rounded-4" style="background: #faf5ff; color: #9333ea; font-size: 1.35rem;">
+                    <i class="bi bi-truck"></i>
+                </div>
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database with demo data.
+     * Seed the application's database with demo data matching mockup exactly.
      */
     public function run(): void
     {
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $owner = User::updateOrCreate(
             ['email' => 'owner@example.com'],
             [
-                'name' => 'Budi Santoso (Owner)',
+                'name' => 'Budi Santoso',
                 'password' => Hash::make('password123'),
                 'role' => 'owner',
             ]
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $staf = User::updateOrCreate(
             ['email' => 'staf@example.com'],
             [
-                'name' => 'Siti Rahma (Staf)',
+                'name' => 'Siti Rahma',
                 'password' => Hash::make('password123'),
                 'role' => 'staf',
             ]
@@ -43,17 +43,17 @@ class DatabaseSeeder extends Seeder
         $pembeli = User::updateOrCreate(
             ['email' => 'pembeli@example.com'],
             [
-                'name' => 'Andi Wijaya (Pembeli)',
+                'name' => 'Andi Wijaya',
                 'password' => Hash::make('password123'),
                 'role' => 'pembeli',
             ]
         );
 
-        // 2. Kategori Produk
+        // 2. Kategori Produk (5 Kategori)
         $categoriesData = [
             ['name' => 'Sembako', 'description' => 'Bahan pokok pangan harian seperti beras, gula, dan minyak.'],
             ['name' => 'Minuman', 'description' => 'Minuman kemasan, air mineral, teh, kopi, dan jus.'],
-            ['name' => 'Makanan Ringan', 'description' => 'Snack, biskuit, keripik, dan camilan.'],
+            ['name' => 'Makanan & Minuman', 'description' => 'Kopi, teh celup, susu, biskuit, dan camilan.'],
             ['name' => 'Bumbu & Bahan Dapur', 'description' => 'Garam, penyedap rasa, saus, kecap, dan bumbu instan.'],
             ['name' => 'Perlengkapan Rumah', 'description' => 'Sabun cuci, detergen, pembersih lantai, dan tisu.'],
         ];
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             $categories[$cat['name']] = Category::firstOrCreate(['name' => $cat['name']], $cat);
         }
 
-        // 3. Pemasok (Suppliers)
+        // 3. Pemasok (3 Suppliers)
         $suppliersData = [
             [
                 'name' => 'PT Sumber Makmur Logistik',
@@ -93,8 +93,35 @@ class DatabaseSeeder extends Seeder
             $suppliers[] = Supplier::firstOrCreate(['name' => $sup['name']], $sup);
         }
 
-        // 4. Produk
+        // 4. Produk (8 Produk Total, 3 Produk Stok Rendah Persis Seperti Mockup)
         $productsData = [
+            [
+                'sku' => 'PRD-RMH-001',
+                'name' => 'Detergen Bubuk Konsentrat 800gr',
+                'category_id' => $categories['Perlengkapan Rumah']->id,
+                'purchase_price' => 19500,
+                'selling_price' => 25000,
+                'stock' => 2, // Kritis (stok <= 3)
+                'minimum_stock' => 6,
+            ],
+            [
+                'sku' => 'PRD-MNM-002',
+                'name' => 'Teh Botol Melati 350ml (Karton)',
+                'category_id' => $categories['Minuman']->id,
+                'purchase_price' => 55000,
+                'selling_price' => 68000,
+                'stock' => 3, // Kritis (stok <= 3)
+                'minimum_stock' => 8,
+            ],
+            [
+                'sku' => 'PRD-MAK-003',
+                'name' => 'Kopi Bubuk Special 250gr',
+                'category_id' => $categories['Makanan & Minuman']->id,
+                'purchase_price' => 18000,
+                'selling_price' => 25000,
+                'stock' => 5, // Waspada (stok <= minimum_stock)
+                'minimum_stock' => 10,
+            ],
             [
                 'sku' => 'PRD-SMB-001',
                 'name' => 'Beras Pandan Wangi 5 Kg',
@@ -110,7 +137,7 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $categories['Sembako']->id,
                 'purchase_price' => 30000,
                 'selling_price' => 36000,
-                'stock' => 4, // Low stock alert!
+                'stock' => 18,
                 'minimum_stock' => 10,
             ],
             [
@@ -132,24 +159,6 @@ class DatabaseSeeder extends Seeder
                 'minimum_stock' => 5,
             ],
             [
-                'sku' => 'PRD-MNM-002',
-                'name' => 'Teh Botol Melati 350ml (Karton)',
-                'category_id' => $categories['Minuman']->id,
-                'purchase_price' => 55000,
-                'selling_price' => 68000,
-                'stock' => 3, // Low stock alert!
-                'minimum_stock' => 8,
-            ],
-            [
-                'sku' => 'PRD-SNK-001',
-                'name' => 'Keripik Singkong Balado 200gr',
-                'category_id' => $categories['Makanan Ringan']->id,
-                'purchase_price' => 11000,
-                'selling_price' => 15000,
-                'stock' => 28,
-                'minimum_stock' => 10,
-            ],
-            [
                 'sku' => 'PRD-BMB-001',
                 'name' => 'Kecap Manis Refill 550ml',
                 'category_id' => $categories['Bumbu & Bahan Dapur']->id,
@@ -158,20 +167,11 @@ class DatabaseSeeder extends Seeder
                 'stock' => 18,
                 'minimum_stock' => 8,
             ],
-            [
-                'sku' => 'PRD-RMH-001',
-                'name' => 'Detergen Bubuk Konsentrat 800gr',
-                'category_id' => $categories['Perlengkapan Rumah']->id,
-                'purchase_price' => 19500,
-                'selling_price' => 25000,
-                'stock' => 2, // Low stock alert!
-                'minimum_stock' => 6,
-            ],
         ];
 
         $createdProducts = [];
         foreach ($productsData as $prod) {
-            $createdProducts[] = Product::firstOrCreate(['sku' => $prod['sku']], $prod);
+            $createdProducts[$prod['sku']] = Product::firstOrCreate(['sku' => $prod['sku']], $prod);
         }
 
         // 5. Riwayat Pembelian (Stock-in) Awal
@@ -190,21 +190,34 @@ class DatabaseSeeder extends Seeder
         if (!$purchase1->items()->exists()) {
             PurchaseItem::create([
                 'purchase_id' => $purchase1->id,
-                'product_id' => $createdProducts[0]->id,
+                'product_id' => $createdProducts['PRD-SMB-001']->id,
                 'quantity' => 20,
                 'unit_cost' => 68000,
                 'subtotal' => 1360000,
             ]);
             PurchaseItem::create([
                 'purchase_id' => $purchase1->id,
-                'product_id' => $createdProducts[2]->id,
+                'product_id' => $createdProducts['PRD-SMB-003']->id,
                 'quantity' => 50,
                 'unit_cost' => 14000,
                 'subtotal' => 700000,
             ]);
         }
 
-        // 6. Riwayat Penjualan (Sales) Awal
+        $purchase2 = Purchase::firstOrCreate(
+            ['purchase_number' => 'PO-20261018-21B52'],
+            [
+                'supplier_id' => $suppliers[2]->id,
+                'user_id' => $staf->id,
+                'total' => 220000,
+                'status' => 'cancelled',
+                'notes' => 'Pembelian dibatalkan oleh supplier karena stok kosong',
+                'purchased_at' => Carbon::now()->subDays(1),
+            ]
+        );
+
+        // 6. Riwayat Penjualan (Sales) - Total 3 Transaksi = Rp 437.000 persis mockup
+        // Transaksi 1: Rp 312.000
         $sale1 = Sale::firstOrCreate(
             ['sale_number' => 'TRX-20261015-001'],
             [
@@ -213,61 +226,54 @@ class DatabaseSeeder extends Seeder
                 'total' => 312000,
                 'status' => 'completed',
                 'notes' => 'Penjualan grosir sembako',
-                'sold_at' => Carbon::now()->subDays(2),
+                'sold_at' => Carbon::now()->subDays(3),
             ]
         );
 
         if (!$sale1->items()->exists()) {
             SaleItem::create([
                 'sale_id' => $sale1->id,
-                'product_id' => $createdProducts[0]->id,
+                'product_id' => $createdProducts['PRD-SMB-001']->id,
                 'quantity' => 2,
                 'price' => 78000,
-                'subtotal' => 1560000 ? 156000 : 156000,
+                'subtotal' => 156000,
             ]);
             SaleItem::create([
                 'sale_id' => $sale1->id,
-                'product_id' => $createdProducts[3]->id,
+                'product_id' => $createdProducts['PRD-MNM-001']->id,
                 'quantity' => 3,
                 'price' => 52000,
                 'subtotal' => 156000,
             ]);
         }
 
-        // Transaksi penjualan kedua (oleh pembeli demo)
+        // Transaksi 2: Rp 125.000
         $sale2 = Sale::firstOrCreate(
             ['sale_number' => 'TRX-20261017-002'],
             [
                 'user_id' => $pembeli->id,
-                'customer_name' => $pembeli->name,
-                'total' => 109000,
+                'customer_name' => $pembeli->name . ' (Pembeli)',
+                'total' => 125000,
                 'status' => 'completed',
                 'notes' => 'Pesanan belanja mandiri pelanggan',
-                'sold_at' => Carbon::now()->subHours(6),
+                'sold_at' => Carbon::now()->subDays(1),
             ]
         );
 
         if (!$sale2->items()->exists()) {
             SaleItem::create([
                 'sale_id' => $sale2->id,
-                'product_id' => $createdProducts[1]->id,
+                'product_id' => $createdProducts['PRD-SMB-002']->id,
                 'quantity' => 2,
                 'price' => 36000,
                 'subtotal' => 72000,
             ]);
             SaleItem::create([
                 'sale_id' => $sale2->id,
-                'product_id' => $createdProducts[5]->id,
+                'product_id' => $createdProducts['PRD-MAK-003']->id,
                 'quantity' => 2,
-                'price' => 15000,
-                'subtotal' => 30000,
-            ]);
-            SaleItem::create([
-                'sale_id' => $sale2->id,
-                'product_id' => $createdProducts[6]->id,
-                'quantity' => 1,
-                'price' => 23000, // wait total is 72000+30000+23000 = 125000, let's adjust total below
-                'subtotal' => 23000,
+                'price' => 25000,
+                'subtotal' => 50000,
             ]);
             $sale2->update(['total' => 125000]);
         }
